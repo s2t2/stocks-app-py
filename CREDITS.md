@@ -23,6 +23,7 @@ The `DataFrame` datatype:
 ## Python Language
 
   + [Looping through dictionary keys](https://stackoverflow.com/questions/3294889/iterating-over-dictionaries-using-for-loops)
+  + [String Formatting as Currency](https://github.com/prof-rossetti/nyu-info-2335-70-201706/blob/master/notes/programming-languages/python/datatypes/numbers.md)
 
 ## The `collections` Module
 
