@@ -1,22 +1,27 @@
 from pandas_datareader import data
-import pandas as pd
+from IPython import embed
 
-tickers = ['AAPL', 'MSFT', 'SPY']
+# COMPILE REQUEST PARAMS
+
+symbols = ['AAPL', 'MSFT']
 data_source = 'google'
-start_date = '2010-01-01'
-end_date = '2016-12-31'
+start = '2017-01-01'
+end = '2017-12-31'
 
-panel_data = data.DataReader(tickers, data_source, start_date, end_date)
+# ISSUE REQUEST
 
-# Getting just the adjusted closing prices. This will return a Pandas DataFrame
-# The index in this DataFrame is the major index of the panel_data.
-close = panel_data.ix['Close']
+response = data.DataReader(symbols, data_source, start, end)
 
-# Getting all weekdays between 01/01/2000 and 12/31/2016
-all_weekdays = pd.date_range(start=start_date, end=end_date, freq='B')
+# PARSE RESPONSE
 
-# How do we align the existing prices in adj_close with our new set of dates?
-# All we need to do is reindex close using all_weekdays as the new index
-close = close.reindex(all_weekdays)
+daily_closing_prices = response.ix["Close"]
 
-close.head(10)
+daily_closing_prices = daily_closing_prices.to_dict('index')
+
+print("---------------------------------------")
+print("DAILY STOCK PRICES:")
+print("---------------------------------------")
+for beginning_of_day in daily_closing_prices:
+    symbol_prices = daily_closing_prices[beginning_of_day]
+    date = str(beginning_of_day.date())
+    print(" + ", date, symbol_prices)
